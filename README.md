@@ -14,11 +14,13 @@ Asymmetric 3-pair bottleneck (see below). Also `results/fairness_table.csv`, `re
 
 **Can claim**
 
-- Under exclusive all-or-nothing multi-pair contention with a **shared sliding-window UCB** and **no fallback**, greedy-UCB **starves** the worst pair. Totals across policies are essentially tied (~0 cost to fairness) — greedy does **not** win total throughput.
-- On an **asymmetric** path-quality map (one pair’s centre path has a weaker hop), cumulative **deficit-fair** lifts worst-pair vs greedy and **beats FIFO** on worst-pair: FIFO still rotates equally onto the weak path; deficit keeps serving until successes catch up.
-- On the **symmetric** map, fair ≈ FIFO (expected) — rotation alone fixes starvation; that suite is reported for honesty.
+- Under exclusive all-or-nothing multi-pair contention with a **shared sliding-window UCB** and **no fallback**, greedy-UCB **starves** the worst pair (asymmetric headline: worst ≈18 vs fair ≈200). Greedy does **not** win total throughput (asymmetric means: greedy ≈586, FIFO ≈659, fair ≈649).
+- On an **asymmetric** path-quality map (one pair’s centre path has a weaker hop), cumulative **deficit-fair** lifts worst-pair vs greedy and **beats FIFO** on worst-pair in **10/10 seeds** (mean +20): FIFO still rotates equally onto the weak path; deficit keeps serving until successes catch up. Do **not** claim a robust fair-vs-FIFO *total* gap — fair total sd ≈59 across seeds.
+- On the **symmetric** map, totals are essentially tied (~598) and fair ≈ FIFO on worst-pair (expected) — rotation alone fixes starvation; that suite is reported for honesty.
 - Low contention (1 pair): policies tie.
 - Sliding-window UCB after mid-run drift: see windowed same-policy diagnostic in `drift.csv` (not cumulative regret-as-bound).
+
+**Same-policy diagnostic (not an oracle bound).** `same_policy_diagnostic.csv` compares UCB vs true-\(p\) path choice under the *same* allocator. Deltas can be negative. For **fair**, true-\(p\) always selects the centre path → at most one grant/round (mean total ≈457); UCB fair gets ≈74/1000 rounds with two parallel e2e successes because optimistic UCB ties open disjoint paths (mean total ≈649) — that gap is exploration parallelism, not “beating an oracle.” Greedy’s smaller negative delta is mostly pair-id tie-break under equal true products.
 
 **Cannot claim**
 
@@ -26,7 +28,8 @@ Asymmetric 3-pair bottleneck (see below). Also `results/fairness_table.csv`, `re
 - That \(p_\ell\) is fidelity — it is **link entanglement success probability per slot**; path succeeds iff all links succeed.
 - Purification, swap fidelity degradation, or inter-domain QBGP / QPSEL (mentored growth).
 - That deficit-first is optimal max-min.
-- That the true-\(p\) same-policy column is a **throughput upper bound** or that “regret” is non-negative — optimistic UCB can create parallel grants under capped init; see diagnostic CSV note.
+- That the true-\(p\) same-policy column is a **throughput upper bound** or that “regret” is non-negative.
+- A stable fair-vs-FIFO advantage on **total** under asymmetry (high seed variance).
 - That losers update link estimates, or that pairs retry a detour the same round (**no fallback**).
 
 ## Locked design choices

@@ -115,13 +115,30 @@ def suite_same_policy_diagnostic(T: int, seeds: range) -> list[dict]:
             }
         )
         deltas = [t.summary["total"] - l.summary["total"] for l, t in zip(learn, truep)]
+        # Rounds with >=2 e2e successes (parallel completions), mean over seeds
+        ucb_par = float(np.mean([sum(1 for x in r.total_per_round if x >= 2) for r in learn]))
+        truep_par = float(np.mean([sum(1 for x in r.total_per_round if x >= 2) for r in truep]))
+        if pol is Policy.FAIR:
+            note = (
+                "fair_truep_always_centre_max_1_grant; "
+                f"ucb_parallel_e2e_rounds≈{ucb_par:.0f}/T vs truep≈{truep_par:.0f}; "
+                "negative_delta_is_optimistic_UCB_parallelism_not_oracle_beating"
+            )
+        else:
+            note = (
+                "greedy_truep_tiebreak_by_pair_id_under_equal_products; "
+                f"ucb_parallel_e2e_rounds≈{ucb_par:.0f}/T vs truep≈{truep_par:.0f}; "
+                "negative_delta_not_an_upper_bound"
+            )
         rows.append(
             {
                 "suite": "same_policy_diagnostic_delta",
                 "policy": pol.value,
                 "mean_truep_minus_ucb_total": float(np.mean(deltas)),
                 "std_truep_minus_ucb_total": float(np.std(deltas)),
-                "note": "negative_means_ucb_total_exceeded_truep_tiebreak_greedy",
+                "mean_ucb_parallel_e2e_rounds": ucb_par,
+                "mean_truep_parallel_e2e_rounds": truep_par,
+                "note": note,
                 "n_seeds": len(seeds),
                 "T": T,
             }
