@@ -33,9 +33,11 @@ def run_sim(
     drift_at: int | None = None,
     ucb_window: int = 200,
     k: int = 3,
+    asymmetric: bool = False,
 ) -> SimResult:
     topo = Topology()
-    topo.set_p(pinned_p_map())
+    base_p = pinned_p_map(asymmetric=asymmetric)
+    topo.set_p(base_p)
     active = list(range(min(n_pairs, len(topo.pairs))))
     net = GridBernoulliNetwork(topo)
     ucb = SlidingWindowUCB(topo.edges, window=ucb_window)
@@ -46,7 +48,7 @@ def run_sim(
 
     for t in range(T):
         if drift_at is not None and t == drift_at:
-            topo.set_p(drifted_p_map())
+            topo.set_p(drifted_p_map(base_p))
         round_ok, rr_token = allocate_round(
             topo,
             net,

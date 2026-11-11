@@ -1,0 +1,7 @@
+suite,policy,mode,note,total,worst,mean_pair,jain,pair_0,pair_1,pair_2,n_seeds,T,mean_truep_minus_ucb_total,std_truep_minus_ucb_total
+same_policy_diagnostic,greedy,ucb,not_an_upper_bound,585.6,17.6,195.2,0.5071111549381003,429.3,130.1,26.2,10,1000,,
+same_policy_diagnostic,greedy,true_p,not_an_upper_bound,574.6,0.0,191.53333333333336,0.33333333333333337,574.6,0.0,0.0,10,1000,,
+same_policy_diagnostic_delta,greedy,,negative_means_ucb_total_exceeded_truep_tiebreak_greedy,,,,,,,,10,1000,-11.0,11.789826122551595
+same_policy_diagnostic,fair,ucb,not_an_upper_bound,648.7,199.7,216.23333333333335,0.9849547125648265,200.6,248.4,199.7,10,1000,,
+same_policy_diagnostic,fair,true_p,not_an_upper_bound,457.4,152.0,152.46666666666667,0.9999933050817811,152.7,152.7,152.0,10,1000,,
+same_policy_diagnostic_delta,fair,,negative_means_ucb_total_exceeded_truep_tiebreak_greedy,,,,,,,,10,1000,-191.3,54.21079228345588

@@ -1,7 +1,10 @@
-suite,policy,oracle,total,worst,mean_pair,jain,pair_0,n_seeds,T,pair_1,pair_2
-low_1pair,greedy,False,558.8,558.8,558.8,1.0,558.8,10,1000,,
-low_1pair,fifo,False,558.8,558.8,558.8,1.0,558.8,10,1000,,
-low_1pair,fair,False,558.8,558.8,558.8,1.0,558.8,10,1000,,
-high_3pair,greedy,False,598.2,20.9,199.4,0.5130603341071353,442.0,10,1000,118.2,38.0
-high_3pair,fifo,False,597.4,187.1,199.13333333333333,0.9962780329933141,194.8,10,1000,189.6,213.0
-high_3pair,fair,False,599.4,199.4,199.8,0.9999955423385749,200.2,10,1000,199.8,199.4
+suite,policy,oracle,total,worst,mean_pair,jain,pair_0,n_seeds,T,asymmetric,pair_1,pair_2
+low_1pair,greedy,False,558.8,558.8,558.8,1.0,558.8,10,1000,,,
+low_1pair,fifo,False,558.8,558.8,558.8,1.0,558.8,10,1000,,,
+low_1pair,fair,False,558.8,558.8,558.8,1.0,558.8,10,1000,,,
+high_3pair_symmetric,greedy,False,598.2,20.9,199.4,0.5130603341071353,442.0,10,1000,False,118.2,38.0
+high_3pair_symmetric,fifo,False,597.4,187.1,199.13333333333333,0.9962780329933141,194.8,10,1000,False,189.6,213.0
+high_3pair_symmetric,fair,False,599.4,199.4,199.8,0.9999955423385749,200.2,10,1000,False,199.8,199.4
+high_3pair_asymmetric,greedy,False,585.6,17.6,195.2,0.5071111549381003,429.3,10,1000,True,130.1,26.2
+high_3pair_asymmetric,fifo,False,658.8,180.0,219.6,0.9555024292296082,193.2,10,1000,True,284.2,181.4
+high_3pair_asymmetric,fair,False,648.7,199.7,216.23333333333335,0.9849547125648265,200.6,10,1000,True,248.4,199.7

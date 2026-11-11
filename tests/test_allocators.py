@@ -43,7 +43,13 @@ def test_one_pair_policies_close() -> None:
 
 
 def test_fair_improves_worst_vs_greedy() -> None:
-    g = run_sim(Policy.GREEDY, n_pairs=3, T=800, seed=2)
-    fair = run_sim(Policy.FAIR, n_pairs=3, T=800, seed=2)
+    g = run_sim(Policy.GREEDY, n_pairs=3, T=800, seed=2, asymmetric=True)
+    fair = run_sim(Policy.FAIR, n_pairs=3, T=800, seed=2, asymmetric=True)
     assert fair.summary["worst"] >= g.summary["worst"]
     assert fair.summary["jain"] >= g.summary["jain"] - 1e-9
+
+
+def test_asymmetric_fair_beats_fifo_worst() -> None:
+    fifo = run_sim(Policy.FIFO, n_pairs=3, T=1000, seed=3, asymmetric=True)
+    fair = run_sim(Policy.FAIR, n_pairs=3, T=1000, seed=3, asymmetric=True)
+    assert fair.summary["worst"] > fifo.summary["worst"]

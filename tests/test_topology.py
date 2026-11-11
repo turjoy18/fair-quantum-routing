@@ -26,6 +26,14 @@ def test_pinned_p_map() -> None:
     assert sum(1 for v in p.values() if v == P_OTHER) == 12 - 1 - len(PARALLEL_CROSSINGS)
 
 
+def test_asymmetric_weak_hop() -> None:
+    from fair_qroute.topology import P_WEAK_HOP, WEAK_PAIR_EDGE
+
+    p = pinned_p_map(asymmetric=True)
+    assert p[_canon(*WEAK_PAIR_EDGE)] == P_WEAK_HOP
+    assert pinned_p_map(asymmetric=False)[_canon(*WEAK_PAIR_EDGE)] == P_OTHER
+
+
 def test_drift_flips_centre() -> None:
     d = drifted_p_map()
     assert d[_canon(*CENTRE_EDGE)] == 0.4
